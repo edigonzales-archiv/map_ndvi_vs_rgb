@@ -131,7 +131,189 @@
                     //extent: [590000, 210000, 645000, 262000],
                     style: 'default'
                 })
-            });            
+            });      
+            
+            var layerColorMap = new ol.layer.Group({
+                layerName: "Karte farbig",
+                layerId: "karte_farbig",
+                baselayer: true,
+                visible: false,
+                layers: [
+                    new ol.layer.Tile({
+                        minResolution: 2.5,
+                        source: new ol.source.WMTS({
+                            url: 'http://www.catais.org/mapcache/wmts',
+                            layer: 'ch.so.agi.bpav10000-farbe',
+                            matrixSet: '21781',
+                            format: 'image/png',
+                            projection: projection,
+                            tileGrid: new ol.tilegrid.WMTS({
+                                origin: ol.extent.getTopLeft(projectionExtent),
+                                resolutions: [4000,3750,3500,3250,3000,2750,2500,2250,2000,1750,1500,1250,1000,750,650,500,250,100,50,20,10,5,2.5,2],
+                                matrixIds: matrixIds
+                            }),
+                        style: 'default'
+                        })
+                    }),
+                    new ol.layer.Tile({
+                        maxResolution: 2.5,
+                        minResolution: 1.5,
+                        source: new ol.source.WMTS({
+                            //urls: ['http://tiles1.catais.org/mapcache/wmts', 'http://tiles2.catais.org/mapcache/wmts', 'http://tiles3.catais.org/mapcache/wmts'],
+                            url: 'http://www.catais.org/mapcache/wmts',
+                            layer: 'ch.so.agi.bpav5000-farbe',
+                            matrixSet: '21781',
+                            format: 'image/png',
+                            projection: projection,
+                            tileGrid: new ol.tilegrid.WMTS({
+                                origin: ol.extent.getTopLeft(projectionExtent),
+                                resolutions: [4000,3750,3500,3250,3000,2750,2500,2250,2000,1750,1500,1250,1000,750,650,500,250,100,50,20,10,5,2.5,2,1.5],
+                                matrixIds: matrixIds
+                            }),
+                        style: 'default'
+                        })
+                    }),                     
+                    new ol.layer.Tile({
+                        maxResolution: 1.5,
+                        source: new ol.source.WMTS({
+                            url: 'http://www.catais.org/mapcache/wmts',
+                            layer: 'ch.so.agi.grundbuchplan-farbe',
+                            matrixSet: '21781',
+                            format: 'image/png',
+                            projection: projection,
+                            tileGrid: new ol.tilegrid.WMTS({
+                                origin: ol.extent.getTopLeft(projectionExtent),
+                                resolutions: [4000,3750,3500,3250,3000,2750,2500,2250,2000,1750,1500,1250,1000,750,650,500,250,100,50,20,10,5,2.5,2,1.5,1,0.5,0.25,0.1],
+                                matrixIds: matrixIds
+                            }),
+                        style: 'default'
+                        })
+                    })
+                ]
+            });          
+                
+            var iconStyle = new ol.style.Style({
+                image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                    anchor: [0.5, 40],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    // opacity: 0.75,
+                    src: 'icon.png'
+                }))
+            });
+            
+            // QGIS WFS Server Respons macht Probleme.
+            // Womöglich wegen respons mime type. 
+            // Das ergibt ajax request jquery Google Suche.
+            // QGIS Server sagt es sei plain/text.
+            var sourcePOI = new ol.source.GeoJSON(
+            /** @type {olx.source.GeoJSONOptions} */ ({
+                object: {
+                    'type': 'FeatureCollection',
+                    'crs': {
+                        'type': 'name',
+                        'properties': {
+                            'name': 'EPSG:21781'
+                        }
+                    },
+                    "features": [{
+                        "type": "Feature",
+                        "id": "ndvi.0",
+                        "bbox": [ 598056.6913035, 216793.72390691, 598056.6913035, 216793.72390691],
+                        "geometry": { 
+                            "type": "Point", 
+                            "coordinates": [598056.6913035, 216793.72390691] 
+                        },
+                        "properties": {
+                            "id": 1
+                        }
+                    },{
+                        "type": "Feature",
+                        "id": "ndvi.1",
+                        "bbox": [ 601248.37083883, 233775.37883425, 601248.37083883, 233775.37883425],
+                        "geometry": { 
+                            "type": "Point", 
+                            "coordinates": [601248.37083883, 233775.37883425] },
+                        "properties": {
+                            "id": 2
+                        }
+                    },{
+                        "type": "Feature",
+                        "id": "ndvi.2",
+                        "bbox": [ 596439.68658716, 226415.43536878, 596439.68658716, 226415.43536878],
+                        "geometry": { 
+                            "type": "Point", 
+                            "coordinates": [596439.68658716, 226415.43536878] },
+                        "properties": {
+                            "id": 3
+                        }
+                    },{
+                        "type": "Feature",
+                        "id": "ndvi.3",
+                        "bbox": [ 606581.95415486, 230375.99436983, 606581.95415486, 230375.99436983],
+                        "geometry": { 
+                            "type": "Point", 
+                            "coordinates": [606581.95415486, 230375.99436983] },
+                        "properties": {
+                            "id": 4
+                        }
+                    },{
+                        "type": "Feature",
+                        "id": "ndvi.4",
+                        "bbox": [ 608831.43001006, 227846.66927484, 608831.43001006, 227846.66927484],
+                        "geometry": { "type": "Point", "coordinates": [608831.43001006, 227846.66927484] },
+                        "properties": {
+                            "id": 5
+                        }
+                    },{
+                        "type": "Feature",
+                        "id": "ndvi.5",
+                        "bbox": [ 599588.07579196, 219535.17303344, 599588.07579196, 219535.17303344],
+                        "geometry": { "type": "Point", "coordinates": [599588.07579196, 219535.17303344] },
+                        "properties": {
+                            "id": 6
+                        }
+                    }]
+                }
+            })
+        );
+            
+         var layerPOI = new ol.layer.Vector({
+              source: sourcePOI,
+              style: iconStyle
+         });       
+             
+             
+//            var sourcePOI = new ol.source.ServerVector({
+//                format: new ol.format.GeoJSON(),
+//                loader: function(extent, resolution, projection){
+//                    var reqq = $.ajax({
+//                        url:'http://www.catais.org/wfs/orthofoto?SERVICE=WFS&REQUEST=GetFeature&TYPENAME=ndvi&outputFormat=GeoJSON', 
+//                        //url: 'http://api3.geo.admin.ch/rest/services/api/MapServer/find?layer=ch.bfs.gebaeude_wohnungs_register&searchText=217887&searchField=egid&returnGeometry=True&geometryFormat=geojson&contains=false',
+//                        dataType:'jsonp',
+//                        mimeType: 'text/javascript' 
+//                    });
+//
+//                    reqq.done(function(response){
+//                        
+//                        console.log(response);
+//                        
+//                        //sourcePOI.addFeatures(sourcePOI.readFeatures(response));
+//                        
+//                        //console.log(sourcePOI.getFeatures().length);
+//                        
+//                    });
+//                    reqq.fail(function(jqXhr, textStatus){
+//                        //console.log("FAIL Re"+textStatus);
+//                    })
+//                },
+//                projection:'EPSG:21781'
+//            });        
+//     
+//            var layerPOI = new ol.layer.Vector({
+//                source: sourcePOI,
+//                style: iconStyle
+//            });            
             
             var map = new ol.Map({
                 renderer: 'canvas',
@@ -145,7 +327,7 @@
                 ol3Logo: false,
                 target: document.getElementById('map'),
                 layers: [
-                    layerNDVI, layerRGB
+                    layerNDVI, layerRGB, layerColorMap, layerPOI
                 ],  
                 view: new ol.View2D({
                     projection: projection,
