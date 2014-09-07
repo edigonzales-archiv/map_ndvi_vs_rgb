@@ -275,46 +275,13 @@
                         }
                     }]
                 }
-            })
-        );
+            }));
             
-         var layerPOI = new ol.layer.Vector({
-              source: sourcePOI,
-              style: iconStyle
-         });       
-             
-             
-//            var sourcePOI = new ol.source.ServerVector({
-//                format: new ol.format.GeoJSON(),
-//                loader: function(extent, resolution, projection){
-//                    var reqq = $.ajax({
-//                        url:'http://www.catais.org/wfs/orthofoto?SERVICE=WFS&REQUEST=GetFeature&TYPENAME=ndvi&outputFormat=GeoJSON', 
-//                        //url: 'http://api3.geo.admin.ch/rest/services/api/MapServer/find?layer=ch.bfs.gebaeude_wohnungs_register&searchText=217887&searchField=egid&returnGeometry=True&geometryFormat=geojson&contains=false',
-//                        dataType:'jsonp',
-//                        mimeType: 'text/javascript' 
-//                    });
-//
-//                    reqq.done(function(response){
-//                        
-//                        console.log(response);
-//                        
-//                        //sourcePOI.addFeatures(sourcePOI.readFeatures(response));
-//                        
-//                        //console.log(sourcePOI.getFeatures().length);
-//                        
-//                    });
-//                    reqq.fail(function(jqXhr, textStatus){
-//                        //console.log("FAIL Re"+textStatus);
-//                    })
-//                },
-//                projection:'EPSG:21781'
-//            });        
-//     
-//            var layerPOI = new ol.layer.Vector({
-//                source: sourcePOI,
-//                style: iconStyle
-//            });            
-            
+            var layerPOI = new ol.layer.Vector({
+                source: sourcePOI,
+                style: iconStyle
+            });       
+                         
             var map = new ol.Map({
                 renderer: 'canvas',
                 //renderer: 'dom',
